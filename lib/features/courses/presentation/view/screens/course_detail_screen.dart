@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:almentor_course_player/features/courses/data/models/course_model.dart';
 import 'package:almentor_course_player/features/courses/presentation/manager/cubit/courses_cubit.dart';
 import 'package:chewie/chewie.dart';
@@ -74,8 +76,9 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
   }
 
   void _onVideoPositionChanged() {
-    if (_videoController == null || !_videoController!.value.isInitialized)
+    if (_videoController == null || !_videoController!.value.isInitialized) {
       return;
+    }
 
     final currentPosition = _videoController!.value.position.inSeconds;
     final totalDuration = _videoController!.value.duration.inSeconds;

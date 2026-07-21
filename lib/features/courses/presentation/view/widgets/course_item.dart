@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:almentor_course_player/core/utlis/app_router.dart';
 import 'package:almentor_course_player/features/courses/data/models/course_model.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +26,7 @@ class CourseItem extends StatelessWidget {
             width: 80.w,
             height: 60.h,
             fit: BoxFit.cover,
-            errorBuilder: (_, __, ___) => Container(
+            errorBuilder: (_, _, _) => Container(
               width: 80.w,
               color: Colors.grey[300],
               child: const Icon(Icons.broken_image, color: Colors.grey),

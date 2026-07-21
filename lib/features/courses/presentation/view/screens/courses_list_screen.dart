@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:almentor_course_player/features/courses/presentation/manager/cubit/courses_cubit.dart';
 import 'package:almentor_course_player/features/courses/presentation/manager/cubit/courses_state.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +14,10 @@ class CoursesListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("My Courses"), elevation: 0),
+      appBar: AppBar(
+        title: Center(child: const Text("My Courses")),
+        //  elevation: 0,
+      ),
       body: BlocBuilder<CoursesCubit, CoursesState>(
         builder: (context, state) {
           if (state is CoursesLoading) {

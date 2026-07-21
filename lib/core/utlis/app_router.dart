@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:almentor_course_player/features/courses/presentation/view/screens/course_detail_screen.dart';
 import 'package:almentor_course_player/features/courses/presentation/view/screens/courses_list_screen.dart';
 import 'package:go_router/go_router.dart';

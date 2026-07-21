@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:almentor_course_player/core/utlis/app_router.dart';
 import 'package:almentor_course_player/core/utlis/services_lecator.dart';
 import 'package:flutter/material.dart';

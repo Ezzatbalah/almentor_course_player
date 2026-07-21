@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:almentor_course_player/features/courses/data/models/course_model.dart';
 import 'package:almentor_course_player/features/courses/data/repo/course_repo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
