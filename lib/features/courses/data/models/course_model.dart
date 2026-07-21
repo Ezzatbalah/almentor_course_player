@@ -19,28 +19,29 @@ class CourseModel {
     this.lastPosition = 0,
   });
 
-  static List<CourseModel> get mockCourses => [
-    CourseModel(
-      id: "c001",
-      title: "Intro to UI/UX Design",
-      thumbnailUrl: "https://picsum.photos/seed/course1/400/225",
-      durationSeconds: 30,
-      description:
-          "A short primer on UI/UX fundamentals and user-centered design paradigms.",
-      videoUrl: "https://cdn.pixabay.com/video/2026/07/10/363199_large.mp4",
-      progress: 40.0,
-      lastPosition: 12,
-    ),
-    CourseModel(
-      id: "c002",
-      title: "Digital Marketing Basics",
-      thumbnailUrl: "https://picsum.photos/seed/course2/400/225",
-      durationSeconds: 30,
-      description:
-          "Core concepts every digital marketer should know to scale projects.",
-      videoUrl: "https://cdn.pixabay.com/video/2026/03/31/343478_large.mp4",
-      progress: 10.0,
-      lastPosition: 3,
-    ),
-  ];
+  factory CourseModel.fromJson(Map<String, dynamic> json) {
+    return CourseModel(
+      id: json['id'] as String,
+      title: json['title'] as String? ?? '',
+      thumbnailUrl: json['thumbnailUrl'] as String? ?? '',
+      durationSeconds: json['durationSeconds'] as int? ?? 0,
+      description: json['description'] as String? ?? '',
+      videoUrl: json['videoUrl'] as String? ?? '',
+      progress: (json['progress'] as num?)?.toDouble() ?? 0.0,
+      lastPosition: json['lastPosition'] as int? ?? 0,
+    );
+  }
+
+  CourseModel copyWith({double? progress, int? lastPosition}) {
+    return CourseModel(
+      id: id,
+      title: title,
+      thumbnailUrl: thumbnailUrl,
+      durationSeconds: durationSeconds,
+      description: description,
+      videoUrl: videoUrl,
+      progress: progress ?? this.progress,
+      lastPosition: lastPosition ?? this.lastPosition,
+    );
+  }
 }
