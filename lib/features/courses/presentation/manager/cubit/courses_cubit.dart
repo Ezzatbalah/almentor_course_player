@@ -9,46 +9,45 @@ class CoursesCubit extends Cubit<CoursesState> {
 
   CoursesCubit(this.repository) : super(CoursesInitial());
 
-  List<CourseModel> _coursesList = [];
+  List<CourseModel> _cachedList = [];
 
-  Future<void> getCourses() async {
+  Future<void> fetchCourses() async {
     emit(CoursesLoading());
     try {
       await Future.delayed(const Duration(milliseconds: 300));
-      _coursesList = await repository.fetchCourses();
-      emit(CoursesLoaded(List.from(_coursesList)));
+      _cachedList = await repository.loadCourses();
+      emit(CoursesLoaded(List.from(_cachedList)));
     } catch (e) {
-      emit(CoursesError("Failed to load courses data."));
+      emit(CoursesError("Failed to fetch courses."));
     }
   }
 
-  void updateCourseProgress({
+  void updatePlaybackProgress({
     required String courseId,
-    required int currentPositionSeconds,
+    required int positionSeconds,
     required int totalDurationSeconds,
   }) {
-    if (totalDurationSeconds <= 0) return;
+    if (totalDurationSeconds == 0) return;
 
-    double calculatedProgress =
-        (currentPositionSeconds / totalDurationSeconds) * 100;
+    double calculatedProgress = (positionSeconds / totalDurationSeconds) * 100;
     if (calculatedProgress > 100) calculatedProgress = 100;
 
-    repository.saveProgress(
-      courseId: courseId,
-      position: currentPositionSeconds,
-      progress: calculatedProgress,
+    repository.saveCourseProgress(
+      courseId,
+      positionSeconds,
+      calculatedProgress,
     );
 
-    _coursesList = _coursesList.map((course) {
+    _cachedList = _cachedList.map((course) {
       if (course.id == courseId) {
         return course.copyWith(
-          lastPosition: currentPositionSeconds,
+          lastPosition: positionSeconds,
           progress: calculatedProgress,
         );
       }
       return course;
     }).toList();
 
-    emit(CoursesLoaded(List.from(_coursesList)));
+    emit(CoursesLoaded(List.from(_cachedList)));
   }
 }

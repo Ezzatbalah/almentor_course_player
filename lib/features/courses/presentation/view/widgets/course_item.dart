@@ -1,7 +1,8 @@
-import 'package:almentor_course_player/features/courses/presentation/view/screens/course_detail_screen.dart';
+import 'package:almentor_course_player/core/utlis/app_router.dart';
+import 'package:almentor_course_player/features/courses/data/models/course_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../data/models/course_model.dart';
+import 'package:go_router/go_router.dart';
 
 class CourseItem extends StatelessWidget {
   final CourseModel course;
@@ -53,12 +54,7 @@ class CourseItem extends StatelessWidget {
           ],
         ),
         onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (_) => CourseDetailScreen(course: course),
-            ),
-          );
+          context.push(AppRoutes.courseDetail, extra: course);
         },
       ),
     );

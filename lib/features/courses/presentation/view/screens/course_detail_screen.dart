@@ -1,8 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:video_player/video_player.dart';
+import 'package:almentor_course_player/features/courses/data/models/course_model.dart';
+import 'package:almentor_course_player/features/courses/presentation/manager/cubit/courses_cubit.dart';
 import 'package:chewie/chewie.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../data/models/course_model.dart';
+import 'package:video_player/video_player.dart';
 
 class CourseDetailScreen extends StatefulWidget {
   final CourseModel course;
@@ -18,6 +20,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
   ChewieController? _chewieController;
   bool _isError = false;
   bool _isInitialized = false;
+  int _lastSavedSecond = -1;
 
   @override
   void initState() {
@@ -38,6 +41,8 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
           Duration(seconds: widget.course.lastPosition),
         );
       }
+
+      _videoController!.addListener(_onVideoPositionChanged);
 
       _chewieController = ChewieController(
         videoPlayerController: _videoController!,
@@ -68,8 +73,27 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
     }
   }
 
+  void _onVideoPositionChanged() {
+    if (_videoController == null || !_videoController!.value.isInitialized)
+      return;
+
+    final currentPosition = _videoController!.value.position.inSeconds;
+    final totalDuration = _videoController!.value.duration.inSeconds;
+
+    if (totalDuration > 0 && currentPosition != _lastSavedSecond) {
+      _lastSavedSecond = currentPosition;
+
+      context.read<CoursesCubit>().updatePlaybackProgress(
+        courseId: widget.course.id,
+        positionSeconds: currentPosition,
+        totalDurationSeconds: totalDuration,
+      );
+    }
+  }
+
   @override
   void dispose() {
+    _videoController?.removeListener(_onVideoPositionChanged);
     _videoController?.dispose();
     _chewieController?.dispose();
     super.dispose();

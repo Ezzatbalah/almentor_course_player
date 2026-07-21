@@ -1,9 +1,15 @@
+import 'package:almentor_course_player/core/utlis/app_router.dart';
+import 'package:almentor_course_player/core/utlis/services_lecator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'features/courses/presentation/view/screens/courses_list_screen.dart';
+import 'features/courses/presentation/manager/cubit/courses_cubit.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await setupServiceLocator();
+
   runApp(const MyApp());
 }
 
@@ -17,14 +23,17 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
-        return MaterialApp(
-          title: 'Almentor Course Player',
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-            scaffoldBackgroundColor: Colors.grey[50],
+        return BlocProvider(
+          create: (context) => sl<CoursesCubit>()..fetchCourses(),
+          child: MaterialApp.router(
+            title: 'Mini Course Player',
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+              primarySwatch: Colors.blue,
+              scaffoldBackgroundColor: Colors.grey[50],
+            ),
+            routerConfig: appRouter,
           ),
-          home: const CoursesListScreen(),
         );
       },
     );

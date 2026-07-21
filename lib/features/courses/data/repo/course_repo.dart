@@ -1,10 +1,6 @@
 import '../models/course_model.dart';
 
 abstract class CourseRepository {
-  Future<List<CourseModel>> fetchCourses();
-  Future<void> saveProgress({
-    required String courseId,
-    required int position,
-    required double progress,
-  });
+  Future<List<CourseModel>> loadCourses();
+  Future<void> saveCourseProgress(String id, int position, double progress);
 }
