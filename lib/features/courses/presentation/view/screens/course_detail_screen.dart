@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import 'package:chewie/chewie.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../data/models/course_model.dart';
+import '../../../data/models/course_model.dart';
 
 class CourseDetailScreen extends StatefulWidget {
   final CourseModel course;

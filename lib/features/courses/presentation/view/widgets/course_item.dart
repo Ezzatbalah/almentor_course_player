@@ -1,7 +1,7 @@
-import 'package:almentor_course_player/features/courses/presentation/screens/course_detail_screen.dart';
+import 'package:almentor_course_player/features/courses/presentation/view/screens/course_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../data/models/course_model.dart';
+import '../../../data/models/course_model.dart';
 
 class CourseItem extends StatelessWidget {
   final CourseModel course;

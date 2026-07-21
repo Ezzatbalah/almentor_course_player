@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'features/courses/presentation/screens/courses_list_screen.dart';
+import 'features/courses/presentation/view/screens/courses_list_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

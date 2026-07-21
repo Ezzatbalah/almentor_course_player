@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../data/models/course_model.dart';
+import '../../../data/models/course_model.dart';
 import '../widgets/course_item.dart';
 
 class CoursesListScreen extends StatelessWidget {
