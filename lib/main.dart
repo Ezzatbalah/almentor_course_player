@@ -7,7 +7,6 @@ import 'features/courses/presentation/manager/cubit/courses_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   await setupServiceLocator();
 
   runApp(const MyApp());
